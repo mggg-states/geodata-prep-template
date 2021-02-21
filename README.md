@@ -14,6 +14,8 @@ scripts and a sensible file structure to aid in that process.
 
 ### Steps
 
+**_Always_ use a GIS tool to open and inspect geometric data after each step.**
+
 1. **Gather geometric data.** Shapefiles for the desired geometries (e.g.
    Wisconsin wards), as well as auxiliary geometries (Census blocks, Census
    block groups) should be retrieved _and opened using a GIS tool to verify that
