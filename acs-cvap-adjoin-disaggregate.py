@@ -79,8 +79,8 @@ for column in pop_columns + vap_columns:
 	try: assert blocks[column].sum() <= blocks["TOTPOP19"].sum()
 	except AssertionError:
 		print(
-			f"The {column} column has a sum greater than the total "
-			f"population. Something isn't right."
+			f"The {column} column has a sum greater than the total population. "
+			f"Something isn't right."
 		)
 
 # Write to file.
