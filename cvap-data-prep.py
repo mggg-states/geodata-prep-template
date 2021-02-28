@@ -1,9 +1,14 @@
-
 import pandas as pd
 import json
 import os
 from tqdm import tqdm
 from enum import Enum
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-y", "--year", help="Data year")
+parser.add_argument("-s", "--state", help="State FIPS")
+args = parser.parse_args()
 
 
 """
@@ -42,9 +47,15 @@ class linenumber(Enum):
     HISPCVAP = 12
 
 
-# Set the years for which we'll retrieve data and set the state FIPS code.
-years = [2019]
-fips = 55
+# Set the years for which we'll retrieve data
+if args.year:
+    years = [args.year]
+else:
+    years = [2019]
+# Set the state FIPS
+state = args.state or 55
+
+
 
 # Set a list of line descriptions and make a dictionary for the codebook
 descriptions = [
@@ -81,7 +92,7 @@ for year in years:
     # Throw out the rows.
     all_cvaps = all_cvaps.rename(columns={column: column.lower() for column in list(all_cvaps)})
     all_cvaps = all_cvaps.drop(["geoname", "lntitle"], axis=1)
-    cvaps = all_cvaps[all_cvaps["geoid"].str.contains(f"15000US{fips}")]
+    cvaps = all_cvaps[all_cvaps["geoid"].str.contains(f"15000US{state}")]
 
     # Reformat the dataframe (essentially transposition with some mapping), and
     # update the codebook.

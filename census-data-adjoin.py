@@ -1,7 +1,12 @@
-
 import geopandas as gpd
 import pandas as pd
 from os import path
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-g", "--geometries", help="Geographic files directory")
+parser.add_argument("-s", "--state", help="State FIPS")
+args = parser.parse_args()
 
 from geometry import retrieve, reformat
 
@@ -14,10 +19,10 @@ back up to other geometries.
 """
 
 # File locations.
-georoot = "./data/geometries/"
+georoot = args.geometries or "./data/geometries/"
 
 # Set the state FIPS.
-state = 27
+state = args.state or 27
 
 # Create initial dataframes.
 bgs_census = pd.DataFrame()
