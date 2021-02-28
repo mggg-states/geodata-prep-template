@@ -1,7 +1,15 @@
-
 import pandas as pd
 import numpy as np
 from os import path
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-s", "--state", help="State FIPS")
+parser.add_argument("-g", "--geometries", help="Geographic files directory")
+parser.add_argument("-d", "--demographics", help="Demographic files directory")
+parser.add_argument("-y", "--year", help="Data year")
+args = parser.parse_args()
+
 
 from geometry import retrieve, reformat, variables
 
@@ -23,12 +31,12 @@ def suml(list):
 
 
 # Set the state FIPS code and some file locations.
-state = 55
-georoot = "./data/geometries/"
-demoroot = "./data/demographics/"
+state = args.state or 55
+georoot = args.geometries or "./data/geometries/"
+demoroot = args.demographics or "./data/demographics/"
 
 # For which year of the ACS are we getting data?
-year = 2019
+year = args.year or 2019
 
 # Set a column -> description mapping. Variable names can be found here:
 # https://api.census.gov/data/2019/acs/acs5/variables.html.

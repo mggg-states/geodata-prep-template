@@ -5,6 +5,13 @@ import os
 from os import path
 import maup
 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-g", "--geometries", help="Geographic files directory")
+parser.add_argument("-d", "--demographics", help="Demographic files directory")
+parser.add_argument("-o", "--outdir", help="Output directory")
+args = parser.parse_args()
+
 from geometry import prorate
 
 """
@@ -19,16 +26,12 @@ geometries (generally block groups) to blocks.
 # Do we want to restart the whole process?
 restart = False
 
-# Set the state.
-state = 27
 
 # Set up some filenames.
-georoot = "../data/geometries/"
-demoroot = "../data/demographics/"
-outdir = path.join(georoot, "blocks-demo-adjoined")
+georoot = args.geometries or "../data/geometries/"
+demoroot = args. demographics or "../data/demographics/"
+outdir = args.outdir or path.join(georoot, "blocks-demo-adjoined")
 
-# Which years of CVAP data are we attaching?
-year = 2019
 
 # Turn on progress bars.
 maup.progress.enabled = True

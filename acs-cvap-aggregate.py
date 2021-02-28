@@ -1,10 +1,16 @@
-
 import geopandas as gpd
 import warnings
 import numpy as np
 import os
 from os import path
 import maup
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("-g", "--geometries", help="Geographic files directory")
+parser.add_argument("-o", "--indir", help="Output directory")
+parser.add_argument("-o", "--outdir", help="Output directory")
+args = parser.parse_args()
 
 """
 This script aggregates block-level demographic data up to desired geometries.
@@ -13,9 +19,9 @@ to wards.
 """
 
 # Set filepath roots.
-georoot = "../data/geometries/"
-indir = path.join(georoot, "wisconsin-wards-2020")
-outdir = path.join(georoot, "wisconsin-wards-2020-acs-adjoined")
+georoot = args.geometries or "../data/geometries/"
+indir = args.indir or path.join(georoot, "wisconsin-wards-2020")
+outdir = args.outdir or path.join(georoot, "wisconsin-wards-2020-acs-adjoined")
 
 # Turn on progress bars.
 maup.progress.enabled = True
