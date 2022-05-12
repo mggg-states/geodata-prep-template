@@ -1,6 +1,0 @@
-geopandas
-maup
-censusdata
-pandas
-tqdm
-numpy
